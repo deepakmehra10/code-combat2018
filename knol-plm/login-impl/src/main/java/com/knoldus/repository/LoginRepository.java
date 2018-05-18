@@ -8,7 +8,7 @@ import java.util.concurrent.CompletionStage;
 public interface LoginRepository {
     
     
-    CompletionStage<String> getLoginType(LoginInfo loginInfo);
+    CompletionStage<UserLogin> getLoginType(LoginInfo loginInfo);
     
     
 }

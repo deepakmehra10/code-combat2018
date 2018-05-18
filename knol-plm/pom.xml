@@ -10,8 +10,6 @@
   <packaging>pom</packaging>
   
   <modules>
-    <module>hello-api</module>
-    <module>hello-impl</module>
     <module>admin-api</module>
     <module>admin-impl</module>
     <module>login-api</module>
@@ -40,6 +38,21 @@
             <arg>-parameters</arg>
           </compilerArgs>
         </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-maven-plugin</artifactId>
+        <version>${lagom.version}</version>
+    
+        <configuration>
+          <cassandraEnabled>false</cassandraEnabled>
+          <kafkaEnabled>false</kafkaEnabled>
+      
+          <unmanagedServices>
+            <cas_native>http://192.168.2.135:9042</cas_native>
+          </unmanagedServices>
+        </configuration>
+  
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
