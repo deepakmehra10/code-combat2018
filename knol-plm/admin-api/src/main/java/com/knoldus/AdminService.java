@@ -1,12 +1,16 @@
 package com.knoldus;
 
+import akka.Done;
 import akka.NotUsed;
+import com.knoldus.models.ProjectResource;
 import com.lightbend.lagom.javadsl.api.Descriptor;
 import com.lightbend.lagom.javadsl.api.Service;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
+import com.lightbend.lagom.javadsl.api.transport.Method;
 
 import static com.lightbend.lagom.javadsl.api.Service.named;
 import static com.lightbend.lagom.javadsl.api.Service.pathCall;
+import static com.lightbend.lagom.javadsl.api.Service.restCall;
 
 /**
  * The Admin service interface.
@@ -16,22 +20,19 @@ import static com.lightbend.lagom.javadsl.api.Service.pathCall;
  */
 public interface AdminService extends Service {
     
-    /**
-     * Example: curl http://localhost:9000/api/hello/Alice
-     */
     ServiceCall<NotUsed, String> helloAdmin(String id);
     
+    ServiceCall<ProjectResource, Done> addResource();
     
-    /**
-     * Example: curl -H "Content-Type: application/json" -X POST -d '{"message":
-     * "Hi"}' http://localhost:9000/api/hello/Alice
-     */
+    ServiceCall<NotUsed, Done> deleteResource(Integer id);
     
     @Override
     default Descriptor descriptor() {
         // @formatter:off
-        return named("admin").withCalls(
-                pathCall("/api/admin/:id", this::helloAdmin)
+        return named("admin-service").withCalls(
+                pathCall("/api/admin/:id", this::helloAdmin),
+                restCall(Method.POST, "/api/admin/addResource", this::addResource),
+                restCall(Method.DELETE, "/api/admin/deleteResource/:id", this::deleteResource)
         ).withAutoAcl(true);
         // @formatter:on
     }
