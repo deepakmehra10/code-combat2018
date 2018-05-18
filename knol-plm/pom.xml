@@ -2,88 +2,224 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.knoldus</groupId>
-    <artifactId>knol-plm</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <packaging>pom</packaging>
-
-    <modules>
-        <module>hello-api</module>
-        <module>hello-impl</module>
-        <module>admin-api</module>
-        <module>admin-impl</module>
-    </modules>
-
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.6</version>
-            </plugin>
-            <plugin>
-                <groupId>com.lightbend.lagom</groupId>
-                <artifactId>lagom-maven-plugin</artifactId>
-                <version>${lagom.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.5.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <compilerArgs>
-                        <arg>-parameters</arg>
-                    </compilerArgs>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-enforcer-plugin</artifactId>
-                <version>1.4.1</version>
-                <executions>
-                    <execution>
-                        <id>enforce-maven-version</id>
-                        <goals>
-                            <goal>enforce</goal>
-                        </goals>
-                        <configuration>
-                            <rules>
-                                <!-- Lagom requires at least Maven version 3.2.1 -->
-                                <requireMavenVersion>
-                                    <version>[3.2.1,)</version>
-                                </requireMavenVersion>
-                            </rules>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.lightbend.lagom</groupId>
-                <artifactId>lagom-maven-dependencies</artifactId>
-                <version>${lagom.version}</version>
-                <scope>import</scope>
-                <type>pom</type>
-            </dependency>
-            <dependency>
-                <groupId>com.typesafe.conductr</groupId>
-                <artifactId>${conductr.lib.name}</artifactId>
-                <version>1.4.7</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <lagom.version>1.3.10</lagom.version>
-        <conductr.lib.name>lagom10-conductr-bundle-lib_2.11</conductr.lib.name>
-    </properties>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.knoldus</groupId>
+  <artifactId>knol-plm</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  
+  <packaging>pom</packaging>
+  
+  <modules>
+    <module>hello-api</module>
+    <module>hello-impl</module>
+    <module>admin-api</module>
+    <module>admin-impl</module>
+    <module>login-api</module>
+    <module>login-impl</module>
+  </modules>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.6</version>
+      </plugin>
+      <plugin>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-maven-plugin</artifactId>
+        <version>${lagom.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.5.1</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+          <compilerArgs>
+            <arg>-parameters</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>1.4.1</version>
+        <executions>
+          <execution>
+            <id>enforce-maven-version</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <!-- Lagom requires at least Maven version 3.2.1 -->
+                <requireMavenVersion>
+                  <version>[3.2.1,)</version>
+                </requireMavenVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-javadsl-server_2.11</artifactId>
+        <version>${lagom.version}</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>com.typesafe.play</groupId>
+        <artifactId>play-netty-server_2.11</artifactId>
+        <version>${play.version}</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-javadsl-api_2.11</artifactId>
+        <version>${lagom.version}</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${apache.lang.version}</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-logback_2.11</artifactId>
+        <version>${lagom.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+          </exclusion>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+          </exclusion>
+        </exclusions>
+      </dependency>
+  
+      <dependency>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-javadsl-integration-client_2.11</artifactId>
+        <version>${lagom.version}</version>
+      </dependency>
+  
+  
+      <dependency>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-javadsl-persistence-cassandra_2.11</artifactId>
+        <version>${lagom.version}</version>
+      </dependency>
+      
+      <dependency>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-javadsl-jackson_2.11</artifactId>
+        <version>${lagom.version}</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-javadsl-testkit_2.11</artifactId>
+        <version>${lagom.version}</version>
+        <scope>test</scope>
+      </dependency>
+  
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${org.mockito.mockito-core.version}</version>
+        <scope>test</scope>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>${lombok.version}</version>
+        <scope>provided</scope>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.glassfish</groupId>
+        <artifactId>javax.el</artifactId>
+        <version>${javax.el.version}</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${hibernate.validator.version}</version>
+      </dependency>
+  
+      <dependency>
+        <groupId>com.lightbend.lagom</groupId>
+        <artifactId>lagom-javadsl-persistence-jdbc_2.11</artifactId>
+        <version>${lagom.version}</version>
+      </dependency>
+  
+      
+      
+      <dependency>
+        <groupId>net.sf.jt400</groupId>
+        <artifactId>jt400-jdbc40</artifactId>
+        <version>${jt400.jdbc.version}</version>
+      </dependency>
+      
+    </dependencies>
+  </dependencyManagement>
+  
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <lombok.version>1.16.18</lombok.version>
+    <lagom.version>1.3.10</lagom.version>
+    <conductr.lib.name>lagom10-conductr-bundle-lib_2.11</conductr.lib.name>
+  
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <skipUTs>false</skipUTs>
+    <skipITs>false</skipITs>
+    <skipJacocoAggregate>false</skipJacocoAggregate>
+    <jacoco.execs.directory>${project.basedir}/../target/jacoco</jacoco.execs.directory>
+    <jacoco.ut.exec>${jacoco.execs.directory}/jacoco.exec</jacoco.ut.exec>
+    <jacoco.it.exec>${jacoco.execs.directory}/jacoco-it.exec</jacoco.it.exec>
+    <jacoco.aggregate.exec>${jacoco.execs.directory}/jacoco-aggregate.exec</jacoco.aggregate.exec>
+    <sonar.jacoco.reportPath>${jacoco.aggregate.exec}</sonar.jacoco.reportPath>
+  
+    <maven.checkstyle.plugin.version>2.17</maven.checkstyle.plugin.version>
+    <maven.compiler.plugin.version>3.7.0</maven.compiler.plugin.version>
+    <maven.docker.plugin.version>0.24.0</maven.docker.plugin.version>
+    <maven.failsafe.plugin.version>2.20.1</maven.failsafe.plugin.version>
+    <maven.findbugs.plugin.version>3.0.5</maven.findbugs.plugin.version>
+    <maven.jacoco.plugin.version>0.7.9</maven.jacoco.plugin.version>
+    <maven.javadoc.plugin.version>2.10.4</maven.javadoc.plugin.version>
+    <maven.sonar.plugin.version>3.3.0.603</maven.sonar.plugin.version>
+    <maven.surefire.plugin.version>2.20.1</maven.surefire.plugin.version>
+    <maven.enforcer.plugin.version>1.4.1</maven.enforcer.plugin.version>
+    <apache.lang.version>3.6</apache.lang.version>
+    <hibernate.validator.version>5.4.1.Final</hibernate.validator.version>
+    <javax.el.version>3.0.1-b08</javax.el.version>
+    <junit.version>4.12</junit.version>
+    <lombok.version>1.16.18</lombok.version>
+    <lagom.version>1.3.10</lagom.version>
+    <org.mockito.mockito-core.version>2.8.47</org.mockito.mockito-core.version>
+    <play.version>2.5.18</play.version>
+    <jt400.jdbc.version>8.1</jt400.jdbc.version>
+  </properties>
 </project>

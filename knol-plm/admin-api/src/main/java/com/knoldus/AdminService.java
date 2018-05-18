@@ -27,12 +27,12 @@ public interface AdminService extends Service {
      * "Hi"}' http://localhost:9000/api/hello/Alice
      */
     
-    @Override
-    default Descriptor descriptor() {
-        // @formatter:off
-        return named("admin").withCalls(
-                pathCall("/api/admin/:id", this::helloAdmin)
-        ).withAutoAcl(true);
-        // @formatter:on
-    }
+        @Override
+        default Descriptor descriptor() {
+            // @formatter:off
+            return named("admin").withCalls(
+                    pathCall("/api/admin/:id", this::helloAdmin)
+            ).withAutoAcl(true);
+            // @formatter:on
+        }
 }
