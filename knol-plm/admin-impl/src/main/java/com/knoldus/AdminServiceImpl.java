@@ -1,5 +1,6 @@
 package com.knoldus;
 
+import akka.Done;
 import akka.NotUsed;
 import akka.japi.Pair;
 import com.knoldus.models.LoginType;
@@ -42,7 +43,10 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public HeaderServiceCall<ProjectResource, String> addResource() {
         return (rh, req) -> {
-            return repository.addResource(req)
+            CompletionStage<Done> doneCompletionStage = repository.addResource(req);
+            doneCompletionStage.thenRunAsync(() -> EmailUtil.sendSimpleMessage(req));
+            
+            return doneCompletionStage
                     .thenApply(done -> Pair.apply(ResponseHeader.OK.withStatus(201), "Project resource inserted."))
                     .exceptionally(throwable -> {
                         System.out.println("\n\n" + throwable.getMessage());

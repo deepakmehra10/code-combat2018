@@ -179,6 +179,22 @@
         <artifactId>json</artifactId>
         <version>${org.json.version}</version>
       </dependency>
+  
+      <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-core</artifactId>
+        <version>1.19.4</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.jersey</groupId>
+        <artifactId>jersey-client</artifactId>
+        <version>1.19.4</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.jersey.contribs</groupId>
+        <artifactId>jersey-multipart</artifactId>
+        <version>1.19.4</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
   

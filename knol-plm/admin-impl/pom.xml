@@ -48,6 +48,19 @@
       <groupId>com.typesafe.conductr</groupId>
       <artifactId>${conductr.lib.name}</artifactId>
     </dependency>
+  
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-client</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey.contribs</groupId>
+      <artifactId>jersey-multipart</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

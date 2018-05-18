@@ -18,8 +18,11 @@ public class ProjectInfo {
     String githubUrl;
     
     String scrumCall;
+    
     String sprintEndDate;
+    
     String sprintStartDate;
+    
     String standupCall;
     
 }
