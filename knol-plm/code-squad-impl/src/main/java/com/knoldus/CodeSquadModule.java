@@ -7,5 +7,6 @@ public class CodeSquadModule extends AbstractModule implements ServiceGuiceSuppo
     @Override
     protected void configure() {
         bindService(CodeSquadService.class, CodeSquadServiceImpl.class);
+        bindClient(ExternalCodeSquadService.class);
     }
 }
