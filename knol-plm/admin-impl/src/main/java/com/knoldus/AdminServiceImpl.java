@@ -2,8 +2,8 @@ package com.knoldus;
 
 import akka.NotUsed;
 import akka.japi.Pair;
-import com.knoldus.models.Docs;
 import com.knoldus.models.LoginType;
+import com.knoldus.models.ProjectInfo;
 import com.knoldus.models.ProjectResource;
 import com.knoldus.models.ProjectUpdateParams;
 import com.knoldus.repository.Repository;
@@ -113,9 +113,9 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public ServiceCall<NotUsed, Docs> getDocsInfo(String projectName) {
+    public ServiceCall<NotUsed, ProjectInfo> getProjectInfo(String projectName) {
         return req -> {
-            return repository.getProjectDocs(projectName)
+            return repository.getProjectInfo(projectName)
                     .thenApply(optionalDoc -> optionalDoc
                             .<RuntimeException>orElseThrow(() -> new TransportException(TransportErrorCode.InternalServerError,
                                     new ExceptionMessage("FAILURE", "Project " + projectName + " does not exist."))));
@@ -123,14 +123,14 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public HeaderServiceCall<Docs, String> postDocs() {
+    public HeaderServiceCall<ProjectInfo, String> postProjectInfo() {
         return (rh, req) -> {
-            return repository.addProjectDocs(req)
+            return repository.addProjectInfo(req)
                     .thenApply(done -> Pair.apply(ResponseHeader.OK.withStatus(201), req.getProjectName() + " docs has been added."))
                     .exceptionally(throwable -> {
                         System.out.println("\n\n" + throwable.getMessage());
                         throw new TransportException(TransportErrorCode.InternalServerError,
-                                new ExceptionMessage("FAILURE", String.format("Add docs failed for %s project", req.getProjectName())));
+                                new ExceptionMessage("FAILURE", String.format("Add details failed for %s project", req.getProjectName())));
                     });
         };
     }

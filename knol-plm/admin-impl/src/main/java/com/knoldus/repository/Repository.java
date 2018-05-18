@@ -2,7 +2,7 @@ package com.knoldus.repository;
 
 import akka.Done;
 import com.datastax.driver.core.Row;
-import com.knoldus.models.Docs;
+import com.knoldus.models.ProjectInfo;
 import com.knoldus.models.ProjectResource;
 
 import java.util.List;
@@ -21,10 +21,10 @@ public interface Repository {
     
     CompletionStage<List<Row>> getByEmployeeId(String eid);
     
-    CompletionStage<Done> updateAdminAndProject(String eid,String managerId, String project);
+    CompletionStage<Done> updateAdminAndProject(String eid, String managerId, String project);
     
-    CompletionStage<Optional<Docs>> getProjectDocs(String projectName);
+    CompletionStage<Optional<ProjectInfo>> getProjectInfo(String projectName);
     
-    CompletionStage<Done> addProjectDocs(Docs docs);
+    CompletionStage<Done> addProjectInfo(ProjectInfo docs);
     
 }

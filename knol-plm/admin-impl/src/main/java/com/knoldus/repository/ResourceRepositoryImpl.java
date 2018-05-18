@@ -2,7 +2,7 @@ package com.knoldus.repository;
 
 import akka.Done;
 import com.datastax.driver.core.Row;
-import com.knoldus.models.Docs;
+import com.knoldus.models.ProjectInfo;
 import com.knoldus.models.ProjectResource;
 import com.lightbend.lagom.javadsl.persistence.cassandra.CassandraSession;
 
@@ -67,15 +67,19 @@ public class ResourceRepositoryImpl implements Repository {
     }
     
     @Override
-    public CompletionStage<Optional<Docs>> getProjectDocs(String projectName) {
+    public CompletionStage<Optional<ProjectInfo>> getProjectInfo(String projectName) {
         return session.selectOne("SELECT * from knolway.project where name=?", projectName)
-                .thenApply(optionalRow -> optionalRow.map(this::mapToDocs));
+                .thenApply(optionalRow -> optionalRow.map(this::mapToProjectInfo));
     }
     
     @Override
-    public CompletionStage<Done> addProjectDocs(Docs docs) {
-        return  session.executeWrite("INSERT INTO knolway.project(name,admin_id,documents,github_url) " +
-                "VALUES(?,?,?,?)", docs.getProjectName(), docs.getAdminId(),docs.getDocuments(),docs.getGithubUrl());
+    public CompletionStage<Done> addProjectInfo(ProjectInfo projectInfo) {
+        return session.executeWrite("INSERT INTO knolway.project(name,admin_id,documents,github_url," +
+                        "scrum_call,sprint_end_date,sprint_start_date,standup_call) " +
+                        "VALUES(?,?,?,?,?,?,?,?)",
+                projectInfo.getProjectName(), projectInfo.getAdminId(), projectInfo.getDocuments(),
+                projectInfo.getGithubUrl(), projectInfo.getScrumCall(), projectInfo.getSprintEndDate(),
+                projectInfo.getSprintStartDate(), projectInfo.getStandupCall());
     }
     
     @Override
@@ -96,12 +100,16 @@ public class ResourceRepositoryImpl implements Repository {
                 .build();
     }
     
-    private Docs mapToDocs(Row row){
-        return Docs.builder()
+    private ProjectInfo mapToProjectInfo(Row row) {
+        return ProjectInfo.builder()
                 .adminId(row.getString("admin_id"))
-                .documents(row.getMap("documents", String.class,String.class))
+                .documents(row.getMap("documents", String.class, String.class))
                 .githubUrl(row.getString("github_url"))
                 .projectName(row.getString("name"))
+                .scrumCall(row.getString("scrum_call"))
+                .sprintEndDate(row.getString("sprint_end_date"))
+                .sprintStartDate(row.getString("sprint_start_date"))
+                .standupCall(row.getString("standup_call"))
                 .build();
     }
 }

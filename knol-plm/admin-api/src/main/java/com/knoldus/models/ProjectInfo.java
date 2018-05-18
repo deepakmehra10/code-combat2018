@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Builder
 @Value
-public class Docs {
+public class ProjectInfo {
     
     String projectName;
     
@@ -16,4 +16,10 @@ public class Docs {
     Map<String, String> documents;
     
     String githubUrl;
+    
+    String scrumCall;
+    String sprintEndDate;
+    String sprintStartDate;
+    String standupCall;
+    
 }

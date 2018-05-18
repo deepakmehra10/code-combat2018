@@ -1,7 +1,7 @@
 package com.knoldus;
 
 import akka.NotUsed;
-import com.knoldus.models.Docs;
+import com.knoldus.models.ProjectInfo;
 import com.knoldus.models.ProjectResource;
 import com.knoldus.models.ProjectUpdateParams;
 import com.lightbend.lagom.javadsl.api.Descriptor;
@@ -35,9 +35,9 @@ public interface AdminService extends Service {
     
     ServiceCall<ProjectUpdateParams, String> updateAdminAndProject(String eid);
     
-    ServiceCall<NotUsed, Docs> getDocsInfo(String projectName);
+    ServiceCall<NotUsed, ProjectInfo> getProjectInfo(String projectName);
     
-    ServiceCall<Docs, String> postDocs();
+    ServiceCall<ProjectInfo, String> postProjectInfo();
     
     @Override
     default Descriptor descriptor() {
@@ -50,8 +50,8 @@ public interface AdminService extends Service {
                         this::getResources),
                 restCall(Method.DELETE, "/api/admin/remove/:id", this::removeFromProject),
                 restCall(Method.PUT, "/api/admin/project/update/:id", this::updateAdminAndProject),
-                restCall(Method.GET, "/api/admin/docs/:project", this::getDocsInfo),
-                restCall(Method.POST, "/api/admin/docs", this::postDocs)
+                restCall(Method.GET, "/api/admin/project/:project", this::getProjectInfo),
+                restCall(Method.POST, "/api/admin/project", this::postProjectInfo)
         ).withAutoAcl(true);
         // @formatter:on
     }
