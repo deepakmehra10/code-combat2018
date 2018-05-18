@@ -1,0 +1,12 @@
+CREATE KEYSPACE knolway WITH replication = {'class': 'SimpleStrategy', 'replication_factor': '1'};
+
+CREATE TABLE knolway.employee (
+    eid int PRIMARY KEY,
+    designation text,
+    login_type text,
+    manager_id text,
+    name text,
+    project_name text
+)
+
+

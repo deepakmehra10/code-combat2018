@@ -8,6 +8,8 @@ import com.lightbend.lagom.javadsl.api.Service;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
 import com.lightbend.lagom.javadsl.api.transport.Method;
 
+import java.util.List;
+
 import static com.lightbend.lagom.javadsl.api.Service.named;
 import static com.lightbend.lagom.javadsl.api.Service.pathCall;
 import static com.lightbend.lagom.javadsl.api.Service.restCall;
@@ -22,9 +24,11 @@ public interface AdminService extends Service {
     
     ServiceCall<NotUsed, String> helloAdmin(String id);
     
-    ServiceCall<ProjectResource, Done> addResource();
+    ServiceCall<ProjectResource, String> addResource();
     
-    ServiceCall<NotUsed, Done> deleteResource(Integer id);
+    ServiceCall<NotUsed, String> deleteResource(Integer id);
+    
+    ServiceCall<NotUsed, List<ProjectResource>> getResources(String managerId, String loginType);
     
     @Override
     default Descriptor descriptor() {
@@ -32,7 +36,9 @@ public interface AdminService extends Service {
         return named("admin-service").withCalls(
                 pathCall("/api/admin/:id", this::helloAdmin),
                 restCall(Method.POST, "/api/admin/addResource", this::addResource),
-                restCall(Method.DELETE, "/api/admin/deleteResource/:id", this::deleteResource)
+                restCall(Method.DELETE, "/api/admin/deleteResource/:id", this::deleteResource),
+                restCall(Method.GET, "/api/admin/getResource/email/:emailId/loginType/:loginType",
+                        this::getResources)
         ).withAutoAcl(true);
         // @formatter:on
     }

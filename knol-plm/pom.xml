@@ -34,7 +34,7 @@
                     <kafkaEnabled>false</kafkaEnabled>
     
                     <unmanagedServices>
-                        <cas_native>http://localhost:9042</cas_native>
+                        <cas_native>http://192.168.2.135:9042</cas_native>
                     </unmanagedServices>
                 </configuration>
     

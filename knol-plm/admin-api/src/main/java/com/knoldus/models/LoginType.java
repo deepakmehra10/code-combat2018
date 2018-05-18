@@ -4,5 +4,5 @@ public enum LoginType {
 
     ADMIN,
     SUPER_ADMIN,
-    EMPLOYEE
+    USER
 }
