@@ -33,13 +33,13 @@ public class ResourceRepositoryImpl implements Repository {
     }
     
     @Override
-    public CompletionStage<Done> deleteResource(Integer id) {
+    public CompletionStage<Done> deleteResource(String id) {
         return session.executeWrite("DELETE FROM knolway.employee where eid=? IF EXISTS", id);
     }
     
     @Override
     public CompletionStage<List<ProjectResource>> getResources(String managerId, String loginType) {
-        return session.selectAll("SELECT * from knolway.employee where eid=?", managerId)
+        return this.getByEmployeeId(managerId)
                 .thenCombineAsync(session.selectAll("SELECT * from knolway.employee where manager_id=?", managerId),
                         (eidRows, managerRows) -> {
                             if (eidRows.isEmpty() || !(eidRows.get(0).getString("login_type").equalsIgnoreCase(loginType))) {
@@ -52,6 +52,16 @@ public class ResourceRepositoryImpl implements Repository {
                 .thenApply(rowList -> rowList.stream()
                         .map(this::mapToProjectResource)
                         .collect(Collectors.toList()));
+    }
+    
+    public CompletionStage<List<Row>> getByEmployeeId(String eid) {
+        return session.selectAll("SELECT * from knolway.employee where eid=?", eid);
+    }
+    
+    @Override
+    public CompletionStage<Done> updateAdminAndProject(String eid, String managerId, String project) {
+        return session.executeWrite("UPDATE knolway.employee SET manager_id=? ,project_name=? where eid=? IF EXISTS",
+                managerId, project, eid);
     }
     
     @Override

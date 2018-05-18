@@ -4,6 +4,7 @@ import akka.NotUsed;
 import akka.japi.Pair;
 import com.knoldus.models.LoginType;
 import com.knoldus.models.ProjectResource;
+import com.knoldus.models.ProjectUpdateParams;
 import com.knoldus.repository.Repository;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
 import com.lightbend.lagom.javadsl.api.deser.ExceptionMessage;
@@ -11,6 +12,7 @@ import com.lightbend.lagom.javadsl.api.transport.ResponseHeader;
 import com.lightbend.lagom.javadsl.api.transport.TransportErrorCode;
 import com.lightbend.lagom.javadsl.api.transport.TransportException;
 import com.lightbend.lagom.javadsl.server.HeaderServiceCall;
+import org.springframework.util.CollectionUtils;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -50,8 +52,13 @@ public class AdminServiceImpl implements AdminService {
     }
     
     @Override
-    public HeaderServiceCall<NotUsed, String> deleteResource(Integer employeeId) {
+    public HeaderServiceCall<NotUsed, String> deleteResource(String employeeId, String role) {
         return (rh, req) -> {
+            if (!LoginType.SUPER_ADMIN.toString().equalsIgnoreCase(role)) {
+                throw new TransportException(TransportErrorCode.BadRequest,
+                        new ExceptionMessage("FAILURE", "Only SUPER_ADMIN user can delete resources."));
+            }
+            
             return repository.deleteResource(employeeId)
                     .thenApply(done -> Pair.apply(ResponseHeader.OK.withStatus(204), "Project resource deleted."))
                     .exceptionally(throwable -> {
@@ -73,6 +80,34 @@ public class AdminServiceImpl implements AdminService {
             }
             
             return list.thenApply(resources -> Pair.apply(ResponseHeader.OK, resources));
+        };
+    }
+    
+    @Override
+    public HeaderServiceCall<NotUsed, String> removeFromProject(String eid) {
+        return (rh, req) -> {
+            return repository.getByEmployeeId(eid)
+                    .thenCompose(rows -> {
+                        if (CollectionUtils.isEmpty(rows)) {
+                            throw new TransportException(TransportErrorCode.BadRequest,
+                                    new ExceptionMessage("FAILURE", eid + " does not exist."));
+                        }
+                        return this.updateAdminAndProject(eid).invokeWithHeaders(rh, ProjectUpdateParams.builder().build());
+                    });
+        };
+    }
+    
+    @Override
+    public HeaderServiceCall<ProjectUpdateParams, String> updateAdminAndProject(String eid) {
+        return (rh, req) -> {
+            return repository.updateAdminAndProject(eid, req.getManagerId(), req.getProjectName())
+                    .thenApply(done -> Pair.apply(ResponseHeader.OK, "Admin and project is updated for " + eid + "."))
+                    .exceptionally(throwable -> {
+                        System.out.println("\n\n" + throwable.getMessage());
+                        
+                        throw new TransportException(TransportErrorCode.InternalServerError,
+                                new ExceptionMessage("FAILURE", eid + " admin and projectName could not be updated."));
+                    });
         };
     }
 }
