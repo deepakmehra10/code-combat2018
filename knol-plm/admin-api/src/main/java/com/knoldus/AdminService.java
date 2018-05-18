@@ -6,6 +6,7 @@ import com.knoldus.models.ProjectResource;
 import com.knoldus.models.ProjectUpdateParams;
 import com.lightbend.lagom.javadsl.api.Descriptor;
 import com.lightbend.lagom.javadsl.api.Service;
+import com.lightbend.lagom.javadsl.api.ServiceAcl;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
 import com.lightbend.lagom.javadsl.api.transport.Method;
 
@@ -51,8 +52,10 @@ public interface AdminService extends Service {
                 restCall(Method.DELETE, "/api/admin/remove/:id", this::removeFromProject),
                 restCall(Method.PUT, "/api/admin/project/update/:id", this::updateAdminAndProject),
                 restCall(Method.GET, "/api/admin/project/:project", this::getProjectInfo),
-                restCall(Method.POST, "/api/admin/project", this::postProjectInfo)
-        ).withAutoAcl(true);
+                restCall(Method.POST, "/api/admin/project", this::postProjectInfo))
+                .withAutoAcl(true)
+                .withServiceAcls(ServiceAcl.methodAndPath(Method.OPTIONS, "/api/admin/.*")
+                );
         // @formatter:on
     }
 }
