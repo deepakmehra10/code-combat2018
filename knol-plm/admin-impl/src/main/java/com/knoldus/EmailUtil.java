@@ -16,7 +16,7 @@ public class EmailUtil {
         client.addFilter(new HTTPBasicAuthFilter("api", "key-80f073abd0dc65b45061a2cfb24537c1"));
         WebResource webResource = client.resource("https://api.mailgun.net/v3/sandbox2efee424c7ca4b0fb1049408ba4291fd.mailgun.org/messages");
         MultivaluedMapImpl formData = new MultivaluedMapImpl();
-        formData.add("from", "Mailgun Sandbox <postmaster@sandbox2efee424c7ca4b0fb1049408ba4291fd.mailgun.org>");
+        formData.add("from", "KnolPay <postmaster@sandbox2efee424c7ca4b0fb1049408ba4291fd.mailgun.org>");
         formData.add("to", String.format("%s <%s>", projectResource.getEmployeeName(), projectResource.getEmployeeId()));
         formData.add("subject", "Project enrollment");
         formData.add("text", String.format("Congratulations %s, you are enrolled in project %s!\n" +
