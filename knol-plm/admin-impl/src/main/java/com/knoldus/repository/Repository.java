@@ -12,7 +12,8 @@ public interface Repository {
     
     CompletionStage<Done> deleteResource(Integer id);
     
-    CompletionStage<List<ProjectResource>> getResources(String managerId);
+    CompletionStage<List<ProjectResource>> getResources(String managerId,String loginType);
     
     CompletionStage<List<ProjectResource>> getAllResources();
+    
 }

@@ -6,6 +6,7 @@ import com.knoldus.models.ProjectResource;
 import com.lightbend.lagom.javadsl.persistence.cassandra.CassandraSession;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
@@ -37,8 +38,17 @@ public class ResourceRepositoryImpl implements Repository {
     }
     
     @Override
-    public CompletionStage<List<ProjectResource>> getResources(String managerId) {
-        return session.selectAll("SELECT * from knolway.employee where manager_id=?", managerId)
+    public CompletionStage<List<ProjectResource>> getResources(String managerId, String loginType) {
+        return session.selectAll("SELECT * from knolway.employee where eid=?", managerId)
+                .thenCombineAsync(session.selectAll("SELECT * from knolway.employee where manager_id=?", managerId),
+                        (eidRows, managerRows) -> {
+                            if (eidRows.isEmpty() || !(eidRows.get(0).getString("login_type").equalsIgnoreCase(loginType))) {
+                                return new ArrayList<Row>();
+                            }
+                            List<Row> rows = new ArrayList<>(eidRows);
+                            rows.addAll(managerRows);
+                            return rows;
+                        })
                 .thenApply(rowList -> rowList.stream()
                         .map(this::mapToProjectResource)
                         .collect(Collectors.toList()));
@@ -61,4 +71,5 @@ public class ResourceRepositoryImpl implements Repository {
                 .manager(row.getString("manager_id"))
                 .build();
     }
+    
 }

@@ -69,7 +69,7 @@ public class AdminServiceImpl implements AdminService {
             if (LoginType.SUPER_ADMIN.toString().equalsIgnoreCase(loginType)) {
                 list = repository.getAllResources();
             } else {
-                list = repository.getResources(managerId);
+                list = repository.getResources(managerId, loginType);
             }
             
             return list.thenApply(resources -> Pair.apply(ResponseHeader.OK, resources));
