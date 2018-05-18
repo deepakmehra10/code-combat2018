@@ -2,6 +2,7 @@ package com.knoldus;
 
 import akka.NotUsed;
 import akka.japi.Pair;
+import com.knoldus.models.Docs;
 import com.knoldus.models.LoginType;
 import com.knoldus.models.ProjectResource;
 import com.knoldus.models.ProjectUpdateParams;
@@ -107,6 +108,29 @@ public class AdminServiceImpl implements AdminService {
                         
                         throw new TransportException(TransportErrorCode.InternalServerError,
                                 new ExceptionMessage("FAILURE", eid + " admin and projectName could not be updated."));
+                    });
+        };
+    }
+    
+    @Override
+    public ServiceCall<NotUsed, Docs> getDocsInfo(String projectName) {
+        return req -> {
+            return repository.getProjectDocs(projectName)
+                    .thenApply(optionalDoc -> optionalDoc
+                            .<RuntimeException>orElseThrow(() -> new TransportException(TransportErrorCode.InternalServerError,
+                                    new ExceptionMessage("FAILURE", "Project " + projectName + " does not exist."))));
+        };
+    }
+    
+    @Override
+    public HeaderServiceCall<Docs, String> postDocs() {
+        return (rh, req) -> {
+            return repository.addProjectDocs(req)
+                    .thenApply(done -> Pair.apply(ResponseHeader.OK.withStatus(201), req.getProjectName() + " docs has been added."))
+                    .exceptionally(throwable -> {
+                        System.out.println("\n\n" + throwable.getMessage());
+                        throw new TransportException(TransportErrorCode.InternalServerError,
+                                new ExceptionMessage("FAILURE", String.format("Add docs failed for %s project", req.getProjectName())));
                     });
         };
     }

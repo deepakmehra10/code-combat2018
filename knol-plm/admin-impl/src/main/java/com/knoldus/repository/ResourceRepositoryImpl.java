@@ -2,12 +2,14 @@ package com.knoldus.repository;
 
 import akka.Done;
 import com.datastax.driver.core.Row;
+import com.knoldus.models.Docs;
 import com.knoldus.models.ProjectResource;
 import com.lightbend.lagom.javadsl.persistence.cassandra.CassandraSession;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletionStage;
 import java.util.stream.Collectors;
 
@@ -65,6 +67,18 @@ public class ResourceRepositoryImpl implements Repository {
     }
     
     @Override
+    public CompletionStage<Optional<Docs>> getProjectDocs(String projectName) {
+        return session.selectOne("SELECT * from knolway.project where name=?", projectName)
+                .thenApply(optionalRow -> optionalRow.map(this::mapToDocs));
+    }
+    
+    @Override
+    public CompletionStage<Done> addProjectDocs(Docs docs) {
+        return  session.executeWrite("INSERT INTO knolway.project(name,admin_id,documents,github_url) " +
+                "VALUES(?,?,?,?)", docs.getProjectName(), docs.getAdminId(),docs.getDocuments(),docs.getGithubUrl());
+    }
+    
+    @Override
     public CompletionStage<List<ProjectResource>> getAllResources() {
         return session.selectAll("SELECT * from knolway.employee")
                 .thenApply(rowList -> rowList.stream()
@@ -82,4 +96,12 @@ public class ResourceRepositoryImpl implements Repository {
                 .build();
     }
     
+    private Docs mapToDocs(Row row){
+        return Docs.builder()
+                .adminId(row.getString("admin_id"))
+                .documents(row.getMap("documents", String.class,String.class))
+                .githubUrl(row.getString("github_url"))
+                .projectName(row.getString("name"))
+                .build();
+    }
 }
