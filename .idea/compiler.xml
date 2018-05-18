@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="admin-api" />
+        <module name="admin-impl" />
+        <module name="login-api" />
+        <module name="login-impl" />
+        <module name="resource-api" />
+        <module name="resource-impl" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="admin-api" target="1.8" />
+      <module name="admin-impl" target="1.8" />
+      <module name="knol-plm" target="1.8" />
+      <module name="login-api" target="1.8" />
+      <module name="login-impl" target="1.8" />
+      <module name="resource-api" target="1.8" />
+      <module name="resource-impl" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

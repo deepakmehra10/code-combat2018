@@ -16,6 +16,8 @@
         <module>admin-impl</module>
         <module>resource-api</module>
         <module>resource-impl</module>
+        <module>code-squad-api</module>
+          <module>code-squad-impl</module>
       </modules>
 
     <build>

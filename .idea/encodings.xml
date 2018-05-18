@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/knol-plm" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/knol-plm/admin-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/knol-plm/admin-impl" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/knol-plm/login-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/knol-plm/login-impl" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/knol-plm/resource-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/knol-plm/resource-impl" charset="UTF-8" />
+  </component>
+</project>
