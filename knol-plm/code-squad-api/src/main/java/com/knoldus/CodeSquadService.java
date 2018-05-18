@@ -3,7 +3,9 @@ package com.knoldus;
 import akka.NotUsed;
 import com.lightbend.lagom.javadsl.api.Descriptor;
 import com.lightbend.lagom.javadsl.api.Service;
+import com.lightbend.lagom.javadsl.api.ServiceAcl;
 import com.lightbend.lagom.javadsl.api.ServiceCall;
+import com.lightbend.lagom.javadsl.api.transport.Method;
 
 import java.util.List;
 
@@ -24,8 +26,9 @@ public interface CodeSquadService extends Service {
     default Descriptor descriptor() {
         // @formatter:off
         return named("code-squad-service").withCalls(
-                pathCall("/api/viewReport", this::viewCodeSquadReport)
-        ).withAutoAcl(true);
+                pathCall("/api/viewReport", this::viewCodeSquadReport))
+                .withAutoAcl(true)
+                .withServiceAcls(ServiceAcl.methodAndPath(Method.OPTIONS, "/api/.*"));
         // @formatter:on
     }
 }

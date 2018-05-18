@@ -19,6 +19,12 @@
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
     </dependency>
+    
+    <dependency>
+      <groupId>com.typesafe.play</groupId>
+      <artifactId>filters-helpers_2.11</artifactId>
+    </dependency>
+    
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>code-squad-api</artifactId>
