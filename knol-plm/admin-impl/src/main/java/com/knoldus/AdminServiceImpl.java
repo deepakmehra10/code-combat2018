@@ -15,6 +15,7 @@ import com.lightbend.lagom.javadsl.api.transport.TransportErrorCode;
 import com.lightbend.lagom.javadsl.api.transport.TransportException;
 import com.lightbend.lagom.javadsl.server.HeaderServiceCall;
 import org.springframework.util.CollectionUtils;
+import play.Logger;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -49,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
             return doneCompletionStage
                     .thenApply(done -> Pair.apply(ResponseHeader.OK.withStatus(201), "Project resource inserted."))
                     .exceptionally(throwable -> {
-                        System.out.println("\n\n" + throwable.getMessage());
+                        Logger.error(throwable.getMessage());
                         throw new TransportException(TransportErrorCode.InternalServerError,
                                 new ExceptionMessage("FAILURE", "Add resource failed."));
                     });
@@ -67,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
             return repository.deleteResource(employeeId)
                     .thenApply(done -> Pair.apply(ResponseHeader.OK.withStatus(204), "Project resource deleted."))
                     .exceptionally(throwable -> {
-                        System.out.println("\n\n" + throwable.getMessage());
+                        Logger.error(throwable.getMessage());
                         throw new TransportException(TransportErrorCode.InternalServerError,
                                 new ExceptionMessage("FAILURE", "Delete resource failed."));
                     });
@@ -108,7 +109,6 @@ public class AdminServiceImpl implements AdminService {
             return repository.updateAdminAndProject(eid, req.getManagerId(), req.getProjectName())
                     .thenApply(done -> Pair.apply(ResponseHeader.OK, "Admin and project is updated for " + eid + "."))
                     .exceptionally(throwable -> {
-                        System.out.println("\n\n" + throwable.getMessage());
                         
                         throw new TransportException(TransportErrorCode.InternalServerError,
                                 new ExceptionMessage("FAILURE", eid + " admin and projectName could not be updated."));
@@ -132,7 +132,7 @@ public class AdminServiceImpl implements AdminService {
             return repository.addProjectInfo(req)
                     .thenApply(done -> Pair.apply(ResponseHeader.OK.withStatus(201), req.getProjectName() + " docs has been added."))
                     .exceptionally(throwable -> {
-                        System.out.println("\n\n" + throwable.getMessage());
+                        Logger.error(throwable.getMessage());
                         throw new TransportException(TransportErrorCode.InternalServerError,
                                 new ExceptionMessage("FAILURE", String.format("Add details failed for %s project", req.getProjectName())));
                     });
