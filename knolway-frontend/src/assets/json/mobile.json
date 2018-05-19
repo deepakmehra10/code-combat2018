@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "name": "Google Pixel (Very Silver, 128 GB)",
+    "price": 39000,
+    "brand": "Google",
+    "category": "Smartphone",
+    "description": "The power of Google(TM), at your fingertips. Every touch, every interaction, every moment - made easy. Available in two sizes.",
+    "imageUrl": "GooglePixel128.jpg"
+    
+  },
+   {
+    "id": 2,
+    "name": "Google Pixel 2 XL Black 64 GB",
+    "price": 63897,
+    "brand": "Google",
+    "category": "Smartphone",
+    "description": "Fullscreen Display, Aspect Ratio: 18:9, 3D Corning Gorilla Glass 5, Always-on Display, 100% DCI-P3 Coverage, 100000:1 Super Contrast Ratio, True Black Level, Full 24-bits Depth or 16.77 Million Colors.",
+    "imageUrl": "GooglePixel2XL64.jpg"
+   },
+    {
+    "id": 3,
+    "name": "Google Pixel XL (Quite Black, 32GB)",
+    "price": 40000,
+    "brand": "Google",
+    "category": "Smartphone",
+    "description": "12.3MP primary camera with phase detection autofocus (PDAF), laser detection autofocus (LDAF),4K (30 fps) video capture, HD 240 fps (8x) and full HD 120 fps (4x) slow motion video, CRI-90 dual-LED flash and 8MP front facing camera.",
+    "imageUrl": "GooglePixelXL32.jpg"
+   },
+    {
+    "id": 4,
+    "name": "Apple iPhone X 64,GB",
+    "price": 87049,
+    "brand": "Apple",
+    "category": "Smartphone",
+    "description": "The iPhone X models have a 5.8\" (diagonal) widescreen LED-backlit True Tone, wide color (P3) \"Super Retina\" with 3D Touch and a 2436x1125 native resolution at 458 ppi.",
+    "imageUrl": "IphoneX64.jpg"
+   },
+    {
+    "id": 5,
+    "name": "Apple iPhone X 256 GB",
+    "price": 92000,
+    "brand": "Apple",
+    "category": "Smartphone",
+    "description": "12MP wide angle and telephoto primary camera with Dual optical image stabilization and Portrait Mode, Digital zoom up to 10x, Quad-LED True Tone flash and Slow sync,4K video recording at 24 fps or 30 fps or 60 fps and slow-motion video recording in 1080p at 120 fps, 7MP front facing TrueDepth camera with Retina Flash and Animoji feature",
+    "imageUrl": "IphoneX256.jpeg"
+   },
+   {
+    "id": 6,
+    "name": "Nokia 6 (Matte Black, 32GB)",
+    "price": 14649,
+    "brand": "Nokia",
+    "category": "Smartphone",
+    "description": "16MP PDAF primary camera and 8MP AF front facing camera 13.97 centimeters (5.5-inch) FHD display with 1920 x 1080 pixels resolution Android v7.1.1 Nougat OS with Qualcomm Snapdragon 430 octa core processor",
+    "imageUrl": "Nokie6MatteBlack32.jpg"
+   },
+     {
+    "id": 7,
+    "name": "Lenovo K8 Note (Venom Black, 4GB) with New System Update",
+    "price": 13000,
+    "brand": "Lenovo",
+    "category": "Smartphone",
+    "description": "13+5MP dual back camera and 13MP front facing camera with party flash Android v7.1.1 Nougat operating system with 2.3GHz Helio X23 10-core processor 13.97 (5.5-inch) Full HD (1920 x 1080) IPS touchscreen with Gorilla Glass protection",
+    "imageUrl": "LenovoK8.jpg"
+   },
+     {
+    "id": 8,
+    "name": "OnePlus 5T (Midnight Black 6GB RAM + 64GB memory)",
+    "price": 32990,
+    "brand": "OnePlus",
+    "category": "Smartphone",
+    "description": "20MP+16MP primary dual camera and 16MP front facing camera 15.26 centimeters (6.01-inch) capacitive touchscreen FHD Full Optic AMOLED 18:9 display with 2160 x 1080 pixels resolution. Cover Glass:2.5D Corning Gorilla Glass 5 OxygenOS based on Android 7.1.1 Nougat with Qualcomm Snapdragon 835 octa core processor 6 GB RAM, 64 GB internal memory and dual nano SIM dual-standby (4G+4G) 3300mAH lithium Polymer battery with Dash Charge technology Face Unlock, Fingerprint scanner, all-metal unibody and NFC enabled 1 year manufacturer warranty for device and in-box accessories including batteries from the date of purchase",
+    "imageUrl": "OnePlu5T.jpg"
+   }
+]

@@ -1,0 +1,61 @@
+<!--
+<div class="divLogin">
+    <form #loginForm="ngForm" class="login-form" novalidate (keyup.enter)="submit(loginForm)">
+        <fieldset>
+            <div class="col-md-2">
+                <label class="block clearfix"> User Name
+                <span class="block input-icon input-icon-right">
+                    <input type="text" class="form-control" placeholder="Enter User Name" name="Username" [(ngModel)]="model.Username" required #Username="ngModel"
+                        (focus)="toggleUser()" />
+                </span>
+                </label>
+            </div>
+            <div class="col-md-2">
+                <label class="block clearfix"> Password
+                <span class="block input-icon input-icon-right">
+                    <input type="password" class="form-control" placeholder="Enter Password" name="Password" [(ngModel)]="model.Password" required
+                        #Password="ngModel" (focus)="toggleUser()" />
+                </span>
+            </label>
+            </div>
+            <div class="clearfix">
+                <div *ngIf="isSubmitted && !verifiedUser">
+                    <div class="alert-danger">
+                        Incorrect username or password
+                    </div>
+                </div>
+                <div class="btn-login">
+                    <a>
+                        <button type="button" class="btn btn-sm btn-primary" (click)="submit(loginForm)">
+                        <span>Login</span>
+                    </button>
+                    </a>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>-->
+
+<div class="row" id="login"  style="background-color: #e55344;">
+  <div class="col-sm-12">
+    <div style="font-family:'Ubuntu', sans-serif;color:#FFF;font-size:xx-large;">Log In To Knolway</div>
+    <div style="color:#ffffff;font-family: 'Source Sans Pro', sans-serif;">To Log in, enter your username below:</div>
+    <form #loginForm="ngForm" class="login-form" novalidate (keyup.enter)="submit(loginForm)">
+    <p class="wrapper">
+      <input class="icon" type="text" placeholder=" &#61447; Username" name="Username" [(ngModel)]="model.Username" required #Username="ngModel"
+             (focus)="toggleUser()" />
+    </p>
+    <p class="wrapper"><input class="icon" type="password" placeholder=" &#xf084; Password" name="Password" [(ngModel)]="model.Password" required
+                              #Password="ngModel" (focus)="toggleUser()" />
+    </p>
+      <div *ngIf="isSubmitted && !verifiedUser">
+        <div class="alert-danger">
+          Incorrect username or password
+        </div>
+      </div>
+    <div><button class="button" style="padding:10px 10px;color:#e55344;background-color:#ffffff" (click)="submit(loginForm)"><span>Log In </span>
+    </button></div>
+    </form>
+    <a href="#" style="color:#ffffff">Forgot your password?</a>
+  </div>
+</div>

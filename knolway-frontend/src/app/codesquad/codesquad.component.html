@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-sm-12"
+       style="text-align:center;background-color: #272727;color: white;padding-top:30px;padding-bottom: 30px;font-size: large ">
+    CodeSquad Reports
+  </div>
+</div>
+<div class="row" style="margin-top: 20px;">
+ <div *ngFor = "let report of reports">
+<!--  <div class="col-sm-4">
+  <div class="myCard">
+    <div>report.moduleName</div>
+    <hr/>
+    <div>Test Coverage</div>
+    <div>Findbugs</div>
+    <div>Checkstyle Warnings</div>
+  </div>
+  </div>-->
+
+  <div class="col-sm-4" style="margin-bottom: 20px;">
+    <div class="myCard">
+      <div style="font-size:large;background-color:#5E39B2;color:white;text-align:center;padding-top: 30px;padding-bottom: 30px;padding-left: 20px;padding-right: 20px">{{report.moduleName}}</div>
+  <div style="text-align:center;padding-left:20px;color: #272727;font-size: xx-large"><span>Test Coverage</span><span style="margin-left: 20px;font-size: 70px">{{report.coverageJacoco}}%</span></div><hr>
+      <div style="text-align:center;padding-left:20px;color: #272727;font-size: xx-large"><span>Checkstyle</span><span style="margin-left: 20px;font-size: 70px">{{report.checkStyle}}</span></div><hr>
+      <div style="text-align:center;padding-left:20px;color: #272727;font-size: xx-large"><span>Findbugs</span><span style="margin-left: 20px;font-size: 70px">{{report.findBugs}}</span></div>
+    </div>
+  </div>
+<!--  <div class="col-sm-4">
+    <div class="myCard">
+      <div>ModuleName</div>
+      <hr/>
+      <div>Test Coverage</div>
+      <div>Findbugs</div>
+      <div>Checkstyle Warnings</div>
+    </div>
+  </div>-->
+</div>
+
+
+
+</div>

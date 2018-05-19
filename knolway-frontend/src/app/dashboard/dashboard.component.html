@@ -1,0 +1,173 @@
+<div class="container" style="margin-top:5px;font-family: 'Source Sans Pro', sans-serif;">
+  <div class ="row">
+    <div class="col-sm-12">
+      <div id="header" style="font-size:15px;margin-bottom:5px;padding-top:10px;padding-bottom:10px;text-align:center;background-color:#272727;border-radius:2px;color:white">RCCL</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class ="col-sm-12">
+      <!-- Left-aligned media object -->
+      <div class="media">
+        <div class="media-left">
+          <img src="./assets/images/neerajChugh.jpeg" class="media-object" style="width:60px">
+        </div>
+        <div class="media-body" style="color: #272727;font-family: 'arial', sans-serif;">
+          <h4 class="media-heading" style="color: #272727">Neeraj Chugh</h4>
+          <p>Neeraj is QA and Delivery Manager at Knoldus LLP. He is Masters In Information Technology from Symbiosis Pune and a seasoned PMI certified Project Management Professional (PMP)Ãƒâ€šÃ‚Â® with over 14 years of IT Experience in managing, designing, building & support of Technology solutions across diverse
+            organization domains spanning e-commerce, TV-commerce, Financials and US Healthcare.</p>
+        </div>
+      </div>
+      <hr>
+      <p>
+        <a class="btn" style="color:#fff;background-color:#F96F00" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+          Read more project details
+        </a>
+      </p>
+      <div class="collapse" id="collapseExample" style="margin-bottom:15px;">
+        <div class="card card-body">
+          <h4>Project Details</h4>
+          <div><span style="border-right:2px solid;padding-right:15px;">Team Size</span><span style="margin-left:15px;">{{employees.length-1}}</span></div>
+          <div><span style="border-right:2px solid;padding-right:15px;">Project Repository</span><span style="margin-left:15px;">
+            <a href="{{project.githubUrl}}" target="_blank">{{project.githubUrl}}</a></span></div>
+          <div><span style="border-right:2px solid;padding-right:15px;">Sprint Start Date</span><span style="margin-left:15px;">{{project.sprintStartDate}}</span></div>
+          <div><span style="border-right:2px solid;padding-right:15px;">Sprint End Date</span><span style="margin-left:15px;">{{project.sprintEndDate}}</span></div>
+          <div><span style="border-right:2px solid;padding-right:15px;">Scrum Timings</span><span style="margin-left:15px;">{{project.scrumCall}}</span></div>
+          <div><span style="border-right:2px solid;padding-right:15px;">Call Timings</span><span style="margin-left:15px;">{{project.standupCall}}</span></div>
+          <button class="btn btn-primary" (click)="btnClick();">Project Health</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card-deck">
+      <div *ngFor='let employee of employees | slice:1:employees.length'>
+      <div class="col-sm-4" style="margin-bottom: 20px;">
+        <div class="card">
+          <img class="card-img-top" src='./assets/images/{{employee.employeeId.split("@")[0]}}.jpg' alt="Card image cap">
+          <div class="card-body">
+            <h3 class="card-title">{{employee.employeeName | uppercase}}</h3>
+            <p class="card-text">Employee id - {{employee.employeeId}}</p>
+            <button class="btn btn-danger" (click)="delete(employee.employeeId)">Remove</button>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    <!--  <div class="col-sm-4">
+
+        <div class="card">
+          <img class="card-img-top" src="./assets/images/divyadua.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>-->
+     <!-- <div class="col-sm-4">
+
+        <div class="card">
+          <img class="card-img-top" src="./assets/images/anshulshivhare.jpg" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+          </div>
+        </div>
+      </div>
+    </div>-->
+
+  <!--<div class="row">
+    <div class="col-sm-4">
+
+      <div class="card">
+        <img class="card-img-top" src="./assets/images/kunal-sethi.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+
+      <div class="card">
+        <img class="card-img-top" src="./assets/images/Neelakshchauhan.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+
+      <div class="card">
+        <img class="card-img-top" src="./assets/images/sajitgupta.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Card title</h5>
+          <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+  -->  </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <!-- Button trigger modal -->
+      <button type="button" class="btn" data-toggle="modal" data-target="#exampleModalLong" style="background-color:#F96F00;color: white">
+        Add More Team Member      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add Team Member</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form #loginForm="ngForm" class="login-form" novalidate (keyup.enter)="submit(loginForm)">
+                <div class="form-group">
+                  <label for="inputsm">Employee Id</label>
+                  <input class="form-control input-sm" id="inputsm" type="text" name="EmployeeId" [(ngModel)]="model.employeeId" required #EmployeeId="ngModel">
+                </div>
+                <div class="form-group">
+                  <label for="input1">Employee Name</label>
+                  <input class="form-control" id="input1" type="text" name="EmployeeName" [(ngModel)]="model.employeeName" required #EmployeeName="ngModel">
+                </div>
+                <div class="form-group">
+                  <label for="input2">Employee Designation</label>
+                  <input class="form-control input-sm" id="input2" type="text" name="EmployeeDesignation" [(ngModel)]="model.employeeDesignation" required #EmployeeDesignation="ngModel">
+                </div>
+                <div class="form-group">
+                  <label for="input3">Manager</label>
+                  <input class="form-control input-sm" id="input3" type="text" name="Manager" [(ngModel)]="model.manager" required #Manager="ngModel">
+                </div>
+                <div class="form-group">
+                  <label for="input4">Login Type</label>
+                  <input class="form-control input-sm" id="input4" type="text" name="LoginType" [(ngModel)]="model.loginType" required #LoginType="ngModel">
+                </div>
+                <div class="form-group">
+                  <label for="input3">Project Name</label>
+                  <input class="form-control input-sm" id="input5" type="text" name="ProjectName" [(ngModel)]="model.projectName" required #ProjectName="ngModel">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="submit(loginForm)">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+<!--</div>-->
